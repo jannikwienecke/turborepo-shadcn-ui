@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ui/*": ["./src/*"],
+      "@project-planner/*": ["./src/*"],
+      "@types/*": ["./src/types/*"],
     },
   },
   "include": ["src"],

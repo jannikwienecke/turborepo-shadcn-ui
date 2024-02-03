@@ -1,0 +1,27 @@
+{
+  "name": "@repo/project-planner",
+  "version": "0.0.0",
+  "private": true,
+  "types": "./src/types.ts",
+  "scripts": {
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/database": "workspace:*",
+    "@repo/project-planner-domain": "workspace:*",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.46",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@next/eslint-plugin-next": "^14.1.0"
+  },
+  "exports": {
+     ".": "./src/index.ts",
+    "./repositories/*": "./src/repositories/*.ts",
+    "./domain/*": "./src/domain/*.ts",
+    "./types/*": "./src/types/*.ts"
+  }
+  
+}

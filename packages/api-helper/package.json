@@ -1,11 +1,8 @@
 {
-  "name": "@repo/ui",
+  "name": "@repo/api-helper",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "ui:add": "npx shadcn-ui@latest add", 
-    "lint": "eslint ."
-  },
+  "scripts": {},
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
@@ -18,18 +15,14 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-toast": "^1.1.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "jotai": "^2.6.4",
     "lucide-react": "^0.314.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "exports": {
-    "./globals.css": "./src/globals.css",
-    "./postcss.config": "./postcss.config.js",
-    "./tailwind.config": "./tailwind.config.ts",
-    "./lib/*": "./src/lib/*.ts",
-    "./components/*": "./src/components/*.tsx"
+    "./client/*": "./src/client/*.ts"
   }
 }
