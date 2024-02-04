@@ -1,9 +1,6 @@
 "use client";
 
 import { usePageAction } from "@repo/api-helper/client/index";
-import { atom, useAtom, useSetAtom } from "jotai";
-import React from "react";
-import { ProjectPageState } from "./types";
 import {
   Table,
   TableBody,
@@ -12,29 +9,18 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/ui/table";
+import { atom, useAtom, useSetAtom } from "jotai";
+import React from "react";
+import { ProjectPageState } from "./types";
 
 import { Button } from "@repo/ui/components/ui/button";
-import { Input } from "@repo/ui/components/ui/input";
-// import { useToast } from "@repo/ui/components/ui/toast";
 
-import { deleteProject } from "./api/actions/deleteProject";
-import { Toaster } from "@repo/ui/components/ui/toaster";
+import { CreateNewProjectForm } from "@features/create-new-project";
 import { useToast } from "@repo/ui/components/ui/toast";
+import { Toaster } from "@repo/ui/components/ui/toaster";
 import { addProject } from "./api/actions/addProjec";
-
-// import {del} from "./api/actions/deleteProject"
-
-const stateAtom = atom<ProjectPageState>({ projects: [] });
-
-const updateProjectsAtom = atom(
-  null,
-  (get, set, projects: ProjectPageState["projects"]) => {
-    set(stateAtom, {
-      ...get(stateAtom),
-      projects,
-    });
-  },
-);
+import { deleteProject } from "./api/actions/deleteProject";
+import { stateAtom, updateProjectsAtom } from "./project-page-store";
 
 export const ProjectList = ({ projects }: ProjectPageState) => {
   const setStateAtom = useSetAtom(updateProjectsAtom);
@@ -51,11 +37,8 @@ export const ProjectList = ({ projects }: ProjectPageState) => {
   );
 };
 
-const titleAtom = atom("");
-
 const ProjectListContent = ({ projects }: ProjectPageState) => {
   const { toast } = useToast();
-  const [title, setTitle] = useAtom(titleAtom);
   const [atomState] = useAtom(stateAtom);
 
   const {
@@ -83,24 +66,6 @@ const ProjectListContent = ({ projects }: ProjectPageState) => {
     });
   };
 
-  const handleClickAddProject = () => {
-    console.log("add project", title);
-
-    addNewProject(title, (state) => {
-      return {
-        ...state,
-        projects: [
-          ...state.projects,
-          {
-            id: state.projects.length + 1,
-            name: title,
-            status: "OPEN",
-          },
-        ],
-      };
-    });
-  };
-
   React.useEffect(() => {
     if (successAdd) {
       toast({ title: "Success", description: "Project added successfully" });
@@ -112,18 +77,7 @@ const ProjectListContent = ({ projects }: ProjectPageState) => {
   return (
     <>
       <div className="p-8 mx-auto max-w-[80%]">
-        <Input
-          type="text"
-          name="title"
-          placeholder="Add Project"
-          className="w-full mb-4"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <Button onClick={handleClickAddProject} variant={"default"}>
-          Add Project
-        </Button>
+        <CreateNewProjectForm />
 
         <Table>
           <TableHeader>
