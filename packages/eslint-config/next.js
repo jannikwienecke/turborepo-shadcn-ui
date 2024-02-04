@@ -16,7 +16,9 @@ module.exports = {
   },
   env: {
     node: true,
-    browser: true,
+  },
+  rules:{
+  "no-undef": "off",
   },
   plugins: ["only-warn"],
   settings: {

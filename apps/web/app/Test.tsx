@@ -1,79 +1,62 @@
-"use client";
+"use client"
 
-import { usePageAction } from "@repo/api-helper/client/index";
+import { usePageAction } from "@repo/api-helper/client/index"
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@repo/ui/components/ui/table";
-import { atom, useAtom, useSetAtom } from "jotai";
-import React from "react";
-import { ProjectPageState } from "./types";
+  TableRow
+} from "@repo/ui/components/ui/table"
+import { useAtom, useSetAtom } from "jotai"
+import React from "react"
+import type { ProjectPageState } from "./types"
 
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/ui/button"
 
-import { CreateNewProjectForm } from "@features/create-new-project";
-import { useToast } from "@repo/ui/components/ui/toast";
-import { Toaster } from "@repo/ui/components/ui/toaster";
-import { addProject } from "./api/actions/addProjec";
-import { deleteProject } from "./api/actions/deleteProject";
-import { stateAtom, updateProjectsAtom } from "./project-page-store";
+import { CreateNewProjectForm } from "@features/create-new-project"
+import { Toaster } from "@repo/ui/components/ui/toaster"
+import { deleteProject } from "./api/actions/deleteProject"
+import { stateAtom, updateProjectsAtom } from "./project-page-store"
 
 export const ProjectList = ({ projects }: ProjectPageState) => {
-  const setStateAtom = useSetAtom(updateProjectsAtom);
+  const setStateAtom = useSetAtom(updateProjectsAtom)
 
   React.useEffect(() => {
-    setStateAtom(projects);
-  }, [projects, setStateAtom]);
+    setStateAtom(projects)
+  }, [projects, setStateAtom])
 
   return (
     <>
       <ProjectListContent projects={projects} />
       <Toaster />
     </>
-  );
-};
+  )
+}
 
 const ProjectListContent = ({ projects }: ProjectPageState) => {
-  const { toast } = useToast();
-  const [atomState] = useAtom(stateAtom);
+  const [atomState] = useAtom(stateAtom)
 
-  const {
-    execute,
-    isLoading,
-    success: successDelete,
-  } = usePageAction({
+  const { execute, success, error } = usePageAction({
     key: "deleteProject",
-    stateAtom,
     action: deleteProject,
-  });
+    stateAtom
+  })
 
-  const { execute: addNewProject, success: successAdd } = usePageAction({
-    key: "addProject",
-    stateAtom,
-    action: addProject,
-  });
+  console.log({ success, error })
 
   const handleClickDelete = (id: number) => {
-    execute(id, (state) => {
+    console.log("delete project", id)
+    execute({ id }, (state) => {
       return {
         ...state,
-        projects: state.projects.filter((project) => project.id !== id),
-      };
-    });
-  };
+        projects: state.projects.filter((project) => project.id !== id)
+      }
+    })
+  }
 
-  React.useEffect(() => {
-    if (successAdd) {
-      toast({ title: "Success", description: "Project added successfully" });
-      console.log("loading!!!");
-    }
-  }, [successAdd]);
-
-  const _projects = atomState.projects?.length ? atomState.projects : projects;
+  const _projects = atomState.projects?.length ? atomState.projects : projects
   return (
     <>
       <div className="p-8 mx-auto max-w-[80%]">
@@ -107,5 +90,5 @@ const ProjectListContent = ({ projects }: ProjectPageState) => {
         </Table>
       </div>
     </>
-  );
-};
+  )
+}

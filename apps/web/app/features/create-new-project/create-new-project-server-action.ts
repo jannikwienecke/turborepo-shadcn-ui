@@ -1,25 +1,30 @@
-"use server";
+"use server"
 
-import { getClient } from "@repo/project-planner";
-import { revalidatePath } from "next/cache";
+import {
+  createSuccessResponse,
+  serverAction
+} from "@repo/api-helper/server/server-action-helper"
 
-export const createNewProjectServerAction = async (title: string) => {
-  try {
-    const res = await getClient().project.addProject(title);
+import { getClient } from "@repo/project-planner"
+import { revalidatePath } from "next/cache"
 
-    revalidatePath("/");
+import zod from "zod"
 
-    return {
-      success: true,
-      error: null,
-    };
-  } catch (e) {
-    revalidatePath("/");
-    console.error(e);
+const createNewProjectSchema = zod.object({
+  title: zod.string().min(5)
+})
 
-    return {
-      success: false,
-      error: (e as any)?.message,
-    };
+export const createNewProjectServerAction = serverAction({
+  schema: createNewProjectSchema,
+  callback: async ({ props }) => {
+    const { title } = props
+    const res = await getClient().project.addProject(title)
+
+    revalidatePath("/")
+
+    return createSuccessResponse({
+      message: "Project created successfully",
+      data: res
+    })
   }
-};
+})

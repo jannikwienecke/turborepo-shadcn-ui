@@ -2,6 +2,7 @@
   "name": "@repo/api-helper",
   "version": "0.0.0",
   "private": true,
+  "types": "./src/types.ts",
   "scripts": {},
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -20,9 +21,13 @@
     "jotai": "^2.6.4",
     "lucide-react": "^0.314.0",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "exports": {
-    "./client/*": "./src/client/*.ts"
+    ".": "./src/index.ts",
+    "./client/*": "./src/client/*.ts",
+    "./server/*": "./src/server/*.ts",
+    "./types/*": "./src/types/*.ts"
   }
 }
