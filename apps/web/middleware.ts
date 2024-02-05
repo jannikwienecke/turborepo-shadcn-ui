@@ -1,6 +1,6 @@
+// eslint-disable-next-line
 import { NextResponse, type NextRequest } from "next/server"
 import { createClientForMiddleware } from "./utils/supabase/middleware"
-// import { createClientForMiddleware } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
   try {
@@ -8,8 +8,6 @@ export async function middleware(request: NextRequest) {
     // Feel free to remove once you have Supabase connected.
     const { supabase, response } = createClientForMiddleware(request)
 
-    // Refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
     await supabase.auth.getSession()
 
     return response

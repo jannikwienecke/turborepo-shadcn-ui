@@ -1,12 +1,14 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr"
-import { SupabaseClient } from "@supabase/supabase-js"
-import { cookies } from "next/headers"
+import type { SupabaseClient } from "@supabase/supabase-js"
+import type { cookies } from "next/headers"
 
 export const createClientForServer = (
   cookieStore: ReturnType<typeof cookies>
-) => {
+): SupabaseClient<Database> => {
   return createServerClient(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
@@ -15,15 +17,17 @@ export const createClientForServer = (
         },
         set(name: string, value: string, options: CookieOptions) {
           try {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             cookieStore.set({ name, value, ...options })
           } catch (error) {}
         },
         remove(name: string, options: CookieOptions) {
           try {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             cookieStore.set({ name, value: "", ...options })
           } catch (error) {}
         }
       }
     }
-  ) as SupabaseClient<Database>
+  )
 }

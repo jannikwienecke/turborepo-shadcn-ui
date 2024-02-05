@@ -4,31 +4,46 @@ const project = resolve(process.cwd(), "tsconfig.json");
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["eslint:recommended", "prettier", "eslint-config-turbo"],
-  plugins: ["only-warn"],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  env: {
-    node: true,
-  },
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
-      },
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
     },
-  },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
-  overrides: [
-    {
-      files: ["*.js?(x)", "*.ts?(x)"],
+    "extends": [
+        "standard-with-typescript",
+        "plugin:react/recommended"
+    ],
+    "ignorePatterns" : ["postcss.config.js", "tailwind.config.js"],
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
-  ],
-};
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "@typescript-eslint/quotes": ["error", "double"],
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/space-before-function-paren": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/indent": "off",
+        
+    }
+}

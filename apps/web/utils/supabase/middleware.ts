@@ -1,8 +1,13 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr"
-import { SupabaseClient } from "@supabase/supabase-js"
+import type { SupabaseClient } from "@supabase/supabase-js"
 import { type NextRequest, NextResponse } from "next/server"
 
-export const createClientForMiddleware = (request: NextRequest) => {
+export const createClientForMiddleware = (
+  request: NextRequest
+): {
+  supabase: SupabaseClient<Database>
+  response: NextResponse
+} => {
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -11,7 +16,9 @@ export const createClientForMiddleware = (request: NextRequest) => {
   })
 
   const supabase = createServerClient(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
@@ -19,7 +26,7 @@ export const createClientForMiddleware = (request: NextRequest) => {
           return request.cookies.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
-          // If the cookie is updated, update the cookies for the request and response
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           request.cookies.set({
             name,
             value,
@@ -30,6 +37,7 @@ export const createClientForMiddleware = (request: NextRequest) => {
               headers: request.headers
             }
           })
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           response.cookies.set({
             name,
             value,
@@ -37,7 +45,7 @@ export const createClientForMiddleware = (request: NextRequest) => {
           })
         },
         remove(name: string, options: CookieOptions) {
-          // If the cookie is removed, update the cookies for the request and response
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           request.cookies.set({
             name,
             value: "",
@@ -48,6 +56,7 @@ export const createClientForMiddleware = (request: NextRequest) => {
               headers: request.headers
             }
           })
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           response.cookies.set({
             name,
             value: "",
@@ -56,7 +65,7 @@ export const createClientForMiddleware = (request: NextRequest) => {
         }
       }
     }
-  ) as SupabaseClient<Database>
+  )
 
   return { supabase, response }
 }

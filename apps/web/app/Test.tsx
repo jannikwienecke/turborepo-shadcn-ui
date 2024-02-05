@@ -39,13 +39,11 @@ export const ProjectList = ({ projects }: ProjectPageState) => {
 const ProjectListContent = ({ projects }: ProjectPageState) => {
   const [atomState] = useAtom(stateAtom)
 
-  const { execute, success, error } = usePageAction({
+  const { execute } = usePageAction({
     key: "deleteProject",
     action: deleteProject,
     stateAtom
   })
-
-  console.log({ success, error })
 
   const handleClickDelete = (id: number) => {
     console.log("delete project", id)

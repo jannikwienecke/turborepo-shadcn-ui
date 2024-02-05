@@ -31,15 +31,13 @@ export const CreateNewProjectForm = () => {
       toast({ title: "Success", description: "Project added successfully" })
       console.log("loading!!!")
     }
-  }, [])
-
-  const xaaa = 1233
+  }, [successAdd, toast])
 
   React.useEffect(() => {
     if (error?.message) {
       toast({ title: "Success", description: "Project added successfully" })
     }
-  }, [])
+  }, [error?.message, toast])
 
   const handleClickAddProject = () => {
     execute(
