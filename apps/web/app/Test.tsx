@@ -1,6 +1,7 @@
 "use client"
 
 import { usePageAction } from "@repo/api-helper/client/index"
+
 import {
   Table,
   TableBody,
@@ -55,6 +56,9 @@ const ProjectListContent = ({ projects }: ProjectPageState) => {
       }
     })
   }
+
+  // fix eslint issues -> only one config
+  // also for prettier
 
   const _projects = atomState.projects?.length ? atomState.projects : projects
   return (

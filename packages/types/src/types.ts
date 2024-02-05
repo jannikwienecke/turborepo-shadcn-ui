@@ -1,1 +1,1 @@
-export type COOL = "COOL";
+export type COOL = "COOL"

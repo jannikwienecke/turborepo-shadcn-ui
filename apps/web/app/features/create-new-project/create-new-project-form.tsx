@@ -1,50 +1,50 @@
-import { usePageAction } from "@repo/api-helper/client/index";
-import { Button } from "@repo/ui/components/ui/button";
-import { Input } from "@repo/ui/components/ui/input";
+import { usePageAction } from "@repo/api-helper/client/index"
+import { Button } from "@repo/ui/components/ui/button"
+import { Input } from "@repo/ui/components/ui/input"
 
-import { atom, useAtom } from "jotai";
-import { stateAtom } from "../../project-page-store";
-import { createNewProjectServerAction } from "./create-new-project-server-action";
-import React from "react";
-import { useToast } from "@repo/ui/components/ui/toast";
+import { atom, useAtom } from "jotai"
+import { stateAtom } from "../../project-page-store"
+import { createNewProjectServerAction } from "./create-new-project-server-action"
+import React from "react"
+import { useToast } from "@repo/ui/components/ui/toast"
 
 const newProjectAtom = atom({
-  title: "",
-});
+  title: ""
+})
 
 export const CreateNewProjectForm = () => {
-  const [newProject, setNewProject] = useAtom(newProjectAtom);
-  const { toast } = useToast();
+  const [newProject, setNewProject] = useAtom(newProjectAtom)
+  const { toast } = useToast()
 
   const {
     execute,
     success: successAdd,
-    error,
+    error
   } = usePageAction({
     key: "addProject",
     stateAtom,
-    action: createNewProjectServerAction,
-  });
+    action: createNewProjectServerAction
+  })
 
   React.useEffect(() => {
     if (successAdd) {
-      toast({ title: "Success", description: "Project added successfully" });
-      console.log("loading!!!");
+      toast({ title: "Success", description: "Project added successfully" })
+      console.log("loading!!!")
     }
-  }, []);
+  }, [])
 
-  const xaaa = 1233;
+  const xaaa = 1233
 
   React.useEffect(() => {
     if (error?.message) {
-      toast({ title: "Success", description: "Project added successfully" });
+      toast({ title: "Success", description: "Project added successfully" })
     }
-  }, []);
+  }, [])
 
   const handleClickAddProject = () => {
     execute(
       {
-        title: newProject.title,
+        title: newProject.title
       },
       (state) => {
         return {
@@ -54,13 +54,13 @@ export const CreateNewProjectForm = () => {
             {
               id: state.projects.length + 1,
               name: newProject.title,
-              status: "OPEN",
-            },
-          ],
-        };
-      },
-    );
-  };
+              status: "OPEN"
+            }
+          ]
+        }
+      }
+    )
+  }
 
   return (
     <>
@@ -77,5 +77,5 @@ export const CreateNewProjectForm = () => {
         Add Project
       </Button>
     </>
-  );
-};
+  )
+}

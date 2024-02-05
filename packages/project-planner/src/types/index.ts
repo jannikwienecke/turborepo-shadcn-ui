@@ -1,22 +1,22 @@
 export interface Repository {
-  project: ProjectRepository;
+  project: ProjectRepository
 }
 
 export interface Project {
-  id: number;
-  name: string;
-  status: "OPEN" | "CLOSED" | "PENDING" | null;
+  id: number
+  name: string
+  status: "OPEN" | "CLOSED" | "PENDING" | null
 }
 
 export interface ProjectRepository {
-  getProjects(): Promise<Project[]>;
-  deleteProject(id: number): Promise<void>;
-  addProject(title: string): Promise<Project>;
+  getProjects(): Promise<Project[]>
+  deleteProject(id: number): Promise<void>
+  addProject(title: string): Promise<Project>
 }
 
 export interface ProjectEntity {
-  props: Project;
+  props: Project
 
-  get name(): string;
-  get isOpen(): boolean;
+  get name(): string
+  get isOpen(): boolean
 }
