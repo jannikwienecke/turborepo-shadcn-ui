@@ -1,1 +1,2 @@
-npm test
+pnpm run format
+pnpm run lint
