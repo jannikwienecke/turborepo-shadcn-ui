@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+// @ts-ignore
 import type { ServerFunction } from "@api-helper/server"
 import type { _InternalState } from "../../types"
 

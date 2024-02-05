@@ -3,10 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@project-planner/*": ["./src/*"],
-      "@types/*": ["./src/types/*"],
-    },
+      "@project-planner/*": ["./src/*"]
+    }
   },
   "include": ["src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

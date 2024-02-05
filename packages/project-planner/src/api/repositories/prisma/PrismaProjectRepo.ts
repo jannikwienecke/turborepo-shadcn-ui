@@ -1,5 +1,6 @@
-import { Project, ProjectRepository } from "@project-planner/types"
-import { PrismaClient } from "@repo/database"
+import type { PrismaClient } from "@repo/database"
+import type { ProjectRepository } from "../../../types/ProjectRepository"
+import type { Project } from "../../../types"
 
 export class PrismaProjectRepo implements ProjectRepository {
   prismaClient: PrismaClient

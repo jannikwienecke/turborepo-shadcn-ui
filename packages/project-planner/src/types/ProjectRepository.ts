@@ -1,5 +1,5 @@
-import { Project } from "."
+import type { Project } from "."
 
 export interface ProjectRepository {
-  getProjects(): Promise<Project[]>
+  getProjects: () => Promise<Project[]>
 }
