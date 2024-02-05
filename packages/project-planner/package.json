@@ -9,7 +9,6 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/database": "workspace:*",
-    "@repo/project-planner-domain": "workspace:*",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "typescript": "^5.3.3"
