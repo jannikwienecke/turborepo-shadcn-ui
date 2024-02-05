@@ -1,4 +1,4 @@
-import * as zod from "zod"
+import type * as zod from "zod"
 
 export type ServerActionSuccessData = {
   message: string

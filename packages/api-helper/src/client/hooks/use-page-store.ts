@@ -21,6 +21,10 @@ const BASE_STATE: _InternalState = {
   prevState: null
 }
 
+// type ServerFunction<T extends z.ZodType<any, any>> = (cbProps: {
+//   props: z.infer<T>
+// }) => Promise<ServerActionResponse>
+
 export const usePageAction = <
   StateType extends Record<string, any>,
   Key extends string,
